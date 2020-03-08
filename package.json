@@ -4,17 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest src --watch"
+    "test": "jest src --watch --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cuid": "^2.1.8",
-    "jest": "^25.1.0"
+    "cuid": "^2.1.8"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.8.7",
-    "faker": "^4.1.0"
+    "faker": "^4.1.0",
+    "jest": "^25.1.0"
   }
 }
