@@ -1,7 +1,8 @@
 /* eslint no-magic-numbers: 0 */
 
-export default function buildMakeArticle({ makeTags }) {
+export default function buildMakeArticle({ Id, md5, makeTags }) {
   return function makeArticle({
+    id = Id.generate(),
     title,
     description,
     tags,
@@ -10,6 +11,8 @@ export default function buildMakeArticle({ makeTags }) {
     date,
   } = {}) {
 
+    if (!Id.isValid(id))
+      throw new Error('Article must have a valid id')
     if (!title)
       throw new Error('Article must have a title')
     if (title.length < 3)
@@ -25,7 +28,11 @@ export default function buildMakeArticle({ makeTags }) {
 
     const validTags = makeTags(tags)
 
+    const hash = md5(title + description + link)
+
     return Object.freeze({
+      id,
+      hash,
       title,
       description,
       tags:validTags,
