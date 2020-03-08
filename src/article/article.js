@@ -16,7 +16,7 @@ export default function buildMakeArticle({ Id, md5, makeTags }) {
     if (!title)
       throw new Error('Article must have a title')
     if (title.length < 3)
-      throw new Error('Article title should be longer than 3 characters')
+      throw new Error('Article title should be a minimal of 3 characters')
     if (!description)
       throw new Error('Article must have a description')
     if (!link)
