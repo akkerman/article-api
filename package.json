@@ -1,12 +1,19 @@
 {
-  "name": "my-articles",
+  "name": "article-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest src --watch"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^25.1.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.7",
+    "faker": "^4.1.0"
+  }
 }
