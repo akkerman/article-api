@@ -1,5 +1,3 @@
-
-
 export default function makeArticlesDb() {
   const articles = {}
 
@@ -10,7 +8,13 @@ export default function makeArticlesDb() {
       return Promise.resolve(a)
     },
 
-    findByHash: async a => Promise.resolve(articles[a.hash])
+    findByHash: async a => Promise.resolve(articles[a.hash]),
+
+    find: async () => {
+      const values = Object.values(articles)
+
+      return Promise.resolve(values)
+    }
   })
 }
 
