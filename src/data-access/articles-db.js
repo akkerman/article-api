@@ -1,20 +1,25 @@
 export default function makeArticlesDb() {
+  return Object.freeze({
+    insert,
+    findByHash,
+    find,
+  })
+
   const articles = {}
 
-  return Object.freeze({
-    insert: async a => {
-      articles[a.hash] = a
+  async function insert(a) {
+    articles[a.hash] = a
 
-      return Promise.resolve(a)
-    },
+    return Promise.resolve(a)
+  }
 
-    findByHash: async a => Promise.resolve(articles[a.hash]),
+  async function findByHash({ hash }) {
+    return Promise.resolve(articles[hash])
+  }
 
-    find: async () => {
-      const values = Object.values(articles)
+  async function find() {
+    const values = Object.values(articles)
 
-      return Promise.resolve(values)
-    }
-  })
+    return Promise.resolve(values)
+  }
 }
-
