@@ -1,29 +1,21 @@
 import makeAddArticle from './add-article'
 import makeFakeArticle from '../../__tests__/fixtures/article'
+import makeArticlesDb from '../data-access/articles-db'
 
 describe('add article', () => {
   let articlesDb
 
   beforeAll(() => {
-    const articles = {}
-
-    articlesDb = {
-      insert: jest.fn(async a => {
-        articles[a.hash] = a
-
-        return Promise.resolve(a)
-      }),
-      findByHash: jest.fn(async a => Promise.resolve(articles[a.hash])),
-    }
+    articlesDb = makeArticlesDb()
   })
 
   it('inserts articles in the database', async () => {
     const newArticle = makeFakeArticle()
     const addArticle = makeAddArticle({ articlesDb })
 
-    await addArticle(newArticle)
+    const inserted = await addArticle(newArticle)
 
-    expect(articlesDb.insert).toHaveBeenCalled()
+    expect(inserted).toMatchObject(newArticle)
   })
 
   it('is idempotent', async () => {

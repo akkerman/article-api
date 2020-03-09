@@ -40,6 +40,5 @@ export default function buildMakeArticle({ Id, md5, makeTags }) {
       image,
       date,
     })
-
   }
 }
