@@ -17,7 +17,7 @@ describe('get articles', () => {
   })
 
   it('gets all articles', async () => {
-    const newArticles = Array.from({ length:2 }, makeFakeArticle)
+    const newArticles = Array.from({ length: 2 }, makeFakeArticle)
 
     newArticles[0].title = 'de eerste'
     newArticles[1].title = 'de tweede'
@@ -27,6 +27,4 @@ describe('get articles', () => {
 
     expect(articles).toMatchObject(newArticles)
   })
-
-
 })

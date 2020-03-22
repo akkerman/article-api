@@ -3,15 +3,14 @@ const MongoClient = mongodb.MongoClient
 let connection
 let db
 
-
-export default async function makeDb() {
+export default async function makeDb () {
   connection =
     connection ||
     (await MongoClient.connect(
       global.__MONGO_URI__,
       {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       }
     ))
   db = db || (await connection.db(global.__MONGO_DB_NAME__))
@@ -19,12 +18,12 @@ export default async function makeDb() {
   return db
 }
 
-export async function closeDb() {
+export async function closeDb () {
   await connection.close()
   await db.close()
 }
 
-export async function clearDb() {
+export async function clearDb () {
   await db.collection('articles').deleteMany({})
   return true
 }

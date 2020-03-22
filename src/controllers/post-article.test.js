@@ -7,13 +7,13 @@ describe('post article controller', () => {
     const article = makeFakeArticle()
     const request = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: article,
+      body: article
     }
     const expected = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
         // 'Last-Modified': new Date(request.body.modifiedOn).toUTCString()
       },
       statusCode: 201,
@@ -32,7 +32,7 @@ describe('post article controller', () => {
     const fakeArticle = makeFakeArticle()
     const request = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: fakeArticle
     }

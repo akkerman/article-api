@@ -8,7 +8,6 @@ describe('makeTags', () => {
     expect(result).toBe(expected)
   })
   it('splits the input into an arry when a string', () => {
-
     const expected = ['aap', 'noot', 'mies']
     const result = makeTags('aap, noot, mies')
 
@@ -18,6 +17,5 @@ describe('makeTags', () => {
     expect(makeTags()).toEqual([])
     expect(makeTags({})).toEqual([])
     expect(makeTags(12)).toEqual([]) // eslint-disable-line
-
   })
 })
