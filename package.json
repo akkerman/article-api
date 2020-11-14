@@ -2,7 +2,8 @@
   "name": "article-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "jest src --watch --coverage --runInBand --detectOpenHandles"
   },
