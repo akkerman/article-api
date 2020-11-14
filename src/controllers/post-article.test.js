@@ -6,18 +6,11 @@ describe('post article controller', () => {
     const postArticle = makePostArticle({ addArticle: a => a })
     const article = makeFakeArticle()
     const request = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: article
     }
     const expected = {
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Last-Modified': new Date(request.body.modifiedOn).toUTCString()
-      },
       statusCode: 201,
-      body: { posted: request.body }
+      data: { posted: request.body }
     }
     const actual = await postArticle(request)
 
@@ -34,14 +27,11 @@ describe('post article controller', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: fakeArticle
+      data: fakeArticle
     }
     const expected = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
       statusCode: 400,
-      body: { error: 'Pow!' }
+      data: { message: 'Pow!' }
     }
     const actual = await postArticle(request)
 

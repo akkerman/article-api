@@ -7,20 +7,14 @@ export default function makeGetArticles ({ listArticles }) {
       const data = await listArticles({ query })
 
       return {
-        headers: {
-          'Content-Type': 'application/json'
-        },
         statusCode: 200,
-        body: data
+        data
       }
     } catch (e) {
       return {
-        headers: {
-          'Content-Type': 'application/json'
-        },
         statusCode: 400,
-        body: {
-          error: e.message
+        data: {
+          message: e.message
         }
       }
     }

@@ -5,20 +5,14 @@ export default function makePostArticle ({ addArticle }) {
       const posted = await addArticle(articleInfo)
 
       return {
-        headers: {
-          'Content-Type': 'application/json'
-        },
         statusCode: 201,
-        body: { posted }
+        data: { posted }
       }
     } catch (e) {
       return {
-        headers: {
-          'Content-Type': 'application/json'
-        },
         statusCode: 400,
-        body: {
-          error: e.message
+        data: {
+          message: e.message
         }
       }
     }

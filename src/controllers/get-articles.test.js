@@ -33,17 +33,11 @@ describe('get articles controller', () => {
 
   it('succesfully gets articles', async () => {
     const request = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
       query: { text: 'stuff' }
     }
     const expected = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
       statusCode: 200,
-      body: articles
+      data: articles
     }
     const actual = await getArticles(request)
 
@@ -54,16 +48,10 @@ describe('get articles controller', () => {
     crea.listArticles.mockRejectedValue(error)
 
     const request = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
     }
     const expected = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
       statusCode: 400,
-      body: { error: error.message }
+      data: { message: error.message }
     }
     const actual = await getArticles(request)
 
