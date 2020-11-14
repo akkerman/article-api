@@ -29,6 +29,13 @@
   "jest": {
     "globalSetup": "./jest-setup.js",
     "globalTeardown": "./jest-teardown.js",
-    "testEnvironment": "./jest-mongo.js"
+    "testEnvironment": "./jest-mongo.js",
+    "watchPathIgnorePatterns": [
+      "globalConfigMongo.json",
+      "coverage"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }
