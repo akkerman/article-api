@@ -5,13 +5,15 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "jest src --watch --coverage --runInBand --detectOpenHandles"
+    "test": "jest src --watch --coverage --runInBand --detectOpenHandles",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cuid": "^2.1.8",
+    "dotenv": "^8.2.0",
     "mongodb": "^3.6.3"
   },
   "devDependencies": {
@@ -23,15 +25,16 @@
     "eslint-plugin-promise": "^4.2.1",
     "faker": "^5.1.0",
     "jest": "^26.6.3",
-    "mongodb-memory-server": "^6.9.2"
+    "mongodb-memory-server": "^6.9.2",
+    "nodemon": "^2.0.6"
   },
   "optionalDependencies": {
     "fsevents": "*"
   },
   "jest": {
-    "globalSetup": "./jest-setup.js",
-    "globalTeardown": "./jest-teardown.js",
-    "testEnvironment": "./jest-mongo.js",
+    "globalSetup": "./jest-setup.cjs",
+    "globalTeardown": "./jest-teardown.cjs",
+    "testEnvironment": "./jest-mongo.cjs",
     "watchPathIgnorePatterns": [
       "globalConfigMongo.json",
       "coverage"

@@ -1,7 +1,10 @@
 /* istanbul ignore file - database will be implicitly tested by e2e */
 
-import { mongoUris } from './config.js'
-import { MongoClient } from 'mongodb'
+import config from './config.js'
+import mongodb from 'mongodb'
+
+const { mongoUris } = config
+const { MongoClient } = mongodb
 
 const log = console
 
@@ -22,7 +25,7 @@ async function closeDb () {
   if (client.isConnected()) { return client.close() }
 }
 
-module.exports = {
+export default {
   makeDb,
   closeDb
 }

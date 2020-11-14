@@ -1,4 +1,4 @@
-const db = require('./db')
+import db from './db'
 
 describe('db module', () => {
   it('has makeDb function', async () => {
