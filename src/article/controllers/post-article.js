@@ -9,6 +9,7 @@ export default function makePostArticle ({ addArticle }) {
         data: { posted }
       }
     } catch (e) {
+      console.error(e)
       return {
         statusCode: 400,
         data: {

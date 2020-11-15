@@ -27,7 +27,7 @@ export default function makeRequestlistener (controller) {
   return async (req, res) => {
     let body = {}
     if (['PATCH', 'POST'].includes(req.method)) {
-      body = await getPostData(req)
+      body = await getBody(req)
     }
 
     const httpRequest = Object.freeze({
@@ -43,14 +43,20 @@ export default function makeRequestlistener (controller) {
   }
 }
 
-async function getPostData (req) {
-  let body = ''
+function getBody (req) {
+  return new Promise((resolve, reject) => {
+    try {
+      let body = ''
 
-  req.on('data', (chunk) => {
-    body += chunk.toString()
-  })
+      req.on('data', (chunk) => {
+        body += chunk.toString()
+      })
 
-  req.on('end', () => {
-    return body
+      req.on('end', () => {
+        resolve(JSON.parse(body))
+      })
+    } catch (error) {
+      reject(error)
+    }
   })
 }

@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: 0 */
 
-export default function buildMakeArticle ({ Id, md5, makeTags }) {
-  return function makeArticle ({
+export default function makeBuildArticle ({ Id, md5, makeTags }) {
+  return function buildArticle ({
     id = Id.generate(),
     title,
     description,
