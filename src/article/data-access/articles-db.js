@@ -1,4 +1,7 @@
 export default function makeArticlesDb ({ makeDb }) {
+  if (typeof makeDb !== 'function') {
+    throw new Error('makeArticlesDb requires function makeDb')
+  }
   return Object.freeze({
     insert,
     findByHash,
@@ -19,7 +22,7 @@ export default function makeArticlesDb ({ makeDb }) {
   async function findByHash ({ hash }) {
     const coll = await collection()
 
-    return await coll.findOne({ hash }).project({ _id: 0 })
+    return await coll.findOne({ hash })// .project({ _id: 0 })
   }
 
   async function find () {

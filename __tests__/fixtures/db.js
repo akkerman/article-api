@@ -1,31 +1,35 @@
 import mongodb from 'mongodb'
 const MongoClient = mongodb.MongoClient
-let connection
-let db
 
-export default async function makeDb () {
-  connection =
-    connection ||
-    (await MongoClient.connect(
-      global.__MONGO_URI__,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }
-    ))
-  db = db || (await connection.db(global.__MONGO_DB_NAME__))
+export default async function makeTestDb ({ dbName } = {}) {
+  if (!dbName) {
+    throw new Error('makeTestDb requires a (unique) dbName')
+  }
 
-  return db
+  const connection = await MongoClient.connect(
+    global.__MONGO_URI__,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  )
+  const db = await connection.db(dbName)
+
+  return {
+    makeDb,
+    close,
+    clear
+  }
+
+  async function makeDb () {
+    return db
+  }
+
+  async function clear (name) {
+    return db.collection(name).deleteMany({})
+  }
+
+  async function close () {
+    await connection.close()
+  }
 }
-
-export async function closeDb () {
-  await connection.close()
-  await db.close()
-}
-
-export async function clearDb () {
-  await db.collection('articles').deleteMany({})
-  return true
-}
-
-export { connection, db }

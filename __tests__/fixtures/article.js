@@ -4,7 +4,7 @@ import crypto from 'crypto'
 
 const md5 = text => crypto.createHash('md5').update(text, 'utf-8').digest('hex')
 
-export default function makeFakeArticle (overrides) {
+export default function buildFakeArticle (overrides) {
   const article = {
     id: cuid(),
     title: faker.lorem.sentence(),

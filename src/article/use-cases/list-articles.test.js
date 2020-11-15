@@ -2,18 +2,23 @@ import makeListArticles from './list-articles'
 import makeArticlesDb from '../data-access/articles-db'
 
 import makeFakeArticle from '../../../__tests__/fixtures/article.js'
-import makeDb, { clearDb } from '../../../__tests__/fixtures/db'
+import makeTestDb from '../../../__tests__/fixtures/db.js'
+
+const COLLECTION_NAME = 'articles'
 
 describe('get articles', () => {
+  let testDb
   let articlesDb
   let listArticles
 
-  beforeAll(() => {
-    articlesDb = makeArticlesDb({ makeDb })
+  beforeAll(async () => {
+    testDb = await makeTestDb({ dbName: 'use-case-list-articles' })
+    articlesDb = makeArticlesDb({ makeDb: testDb.makeDb })
     listArticles = makeListArticles({ articlesDb })
   })
-  afterEach(async () => {
-    await clearDb()
+
+  afterAll(async () => {
+    await testDb.clear(COLLECTION_NAME)
   })
 
   it('gets all articles', async () => {

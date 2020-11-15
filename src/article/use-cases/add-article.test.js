@@ -1,31 +1,35 @@
-import makeAddArticle from './add-article'
-import makeArticlesDb from '../data-access/articles-db'
+import makeAddArticle from './add-article.js'
+import makeArticlesDb from '../data-access/articles-db.js'
 
-import makeFakeArticle from '../../../__tests__/fixtures/article'
-import makeDb, { clearDb } from '../../../__tests__/fixtures/db'
+import buildFakeArticle from '../../../__tests__/fixtures/article.js'
+import makeTestDb from '../../../__tests__/fixtures/db.js'
+
+const COLLECTION_NAME = 'articles'
 
 describe('add article', () => {
+  let testDb
   let articlesDb
+  let addArticle
 
-  beforeAll(() => {
-    articlesDb = makeArticlesDb({ makeDb })
+  beforeAll(async () => {
+    testDb = await makeTestDb({ dbName: 'use-case-add-article' })
+    articlesDb = makeArticlesDb({ makeDb: testDb.makeDb })
+    addArticle = makeAddArticle({ articlesDb })
   })
 
   afterAll(async () => {
-    await clearDb()
+    await testDb.clear(COLLECTION_NAME)
   })
 
   it('inserts articles in the database', async () => {
-    const newArticle = makeFakeArticle()
-    const addArticle = makeAddArticle({ articlesDb })
+    const newArticle = buildFakeArticle()
     const inserted = await addArticle(newArticle)
 
     expect(inserted).toMatchObject(newArticle)
   })
 
   it('is idempotent', async () => {
-    const newArticle = makeFakeArticle({ id: undefined })
-    const addArticle = makeAddArticle({ articlesDb })
+    const newArticle = buildFakeArticle({ id: undefined })
 
     const insertOne = await addArticle(newArticle)
     const insertTwo = await addArticle(newArticle)
