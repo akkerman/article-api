@@ -1,6 +1,6 @@
 /* istanbul ignore file - server startup and shutdown will be implicitly tested by e2e */
 import configureServer from './routers/configure-server.js'
-import db from './db.js'
+import { closeDb } from './db.js'
 import config from './config.js'
 
 // -- base server setup
@@ -25,7 +25,7 @@ function shutdown () {
       process.exitCode = 1
     }
     log.info('close database')
-    db.closeDb().catch(e => { log.error('Error while closing database'); log.error(e) })
+    closeDb().catch(e => { log.error('Error while closing database'); log.error(e) })
     log.info('exit')
     process.exit()
   })

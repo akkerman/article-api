@@ -1,10 +1,18 @@
 import http from 'http'
 
+import articleRouter from './article-router.js'
+
 export default function configure (log) {
   const server = http.createServer((req, res) => {
-    log.info('Received request', req.url)
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({ message: 'OK' }))
+    const { url } = req
+    log.info('Received request', url)
+
+    if (url.startsWith('/api/articles')) {
+      return articleRouter(req, res)
+    }
+
+    res.writeHead(404, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify({ message: 'NOT_FOUND' }))
   })
   return { server }
 }
