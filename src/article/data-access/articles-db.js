@@ -19,15 +19,13 @@ export default function makeArticlesDb ({ makeDb }) {
   async function findByHash ({ hash }) {
     const coll = await collection()
 
-    return await coll.findOne({ hash }, { _id: 0 })
+    return await coll.findOne({ hash }).project({ _id: 0 })
   }
 
   async function find () {
     const coll = await collection()
 
-    console.log('articleDb.find')
-
-    return coll.find({}, { _id: 0 }).toArray()
+    return coll.find({}).project({ _id: 0 }).toArray()
   }
 
   async function collection () {
