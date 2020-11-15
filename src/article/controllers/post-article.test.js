@@ -1,5 +1,5 @@
 import makePostArticle from './post-article'
-import makeFakeArticle from '../../__tests__/fixtures/article'
+import makeFakeArticle from '../../../__tests__/fixtures/article'
 
 describe('post article controller', () => {
   it('succesfully posts an article', async () => {

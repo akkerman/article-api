@@ -1,4 +1,4 @@
-import makeArticle from '../article'
+import makeArticle from '../entities/index.js'
 
 export default function makeAddArticle ({ articlesDb }) {
   return async function addArticle (articleInfo) {

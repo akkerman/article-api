@@ -25,6 +25,8 @@ export default function makeArticlesDb ({ makeDb }) {
   async function find () {
     const coll = await collection()
 
+    console.log('articleDb.find')
+
     return coll.find({}, { _id: 0 }).toArray()
   }
 

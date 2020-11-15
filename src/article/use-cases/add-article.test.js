@@ -1,8 +1,8 @@
 import makeAddArticle from './add-article'
 import makeArticlesDb from '../data-access/articles-db'
 
-import makeFakeArticle from '../../__tests__/fixtures/article'
-import makeDb, { clearDb } from '../../__tests__/fixtures/db'
+import makeFakeArticle from '../../../__tests__/fixtures/article'
+import makeDb, { clearDb } from '../../../__tests__/fixtures/db'
 
 describe('add article', () => {
   let articlesDb

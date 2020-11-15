@@ -1,5 +1,5 @@
 import makeGetArticles from './get-articles'
-import buildFakeArticle from '../../__tests__/fixtures/article'
+import buildFakeArticle from '../../../__tests__/fixtures/article'
 import faker from 'faker'
 
 describe('get articles controller', () => {

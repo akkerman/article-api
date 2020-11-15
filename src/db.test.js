@@ -1,12 +1,12 @@
-import db from './db'
+import { makeDb, closeDb } from './db'
 
 describe('db module', () => {
   it('has makeDb function', async () => {
-    expect(typeof db.makeDb).toEqual('function')
+    expect(typeof makeDb).toEqual('function')
     // db.makeDb()
   })
   it('has closeDb function', async () => {
-    expect(typeof db.closeDb).toEqual('function')
-    await db.closeDb()
+    expect(typeof closeDb).toEqual('function')
+    await closeDb()
   })
 })

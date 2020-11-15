@@ -1,4 +1,4 @@
-import makeFakeArticle from '../../__tests__/fixtures/article'
+import makeFakeArticle from '../../../__tests__/fixtures/article'
 import makeArticle from './'
 
 describe('article', () => {

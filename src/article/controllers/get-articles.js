@@ -2,7 +2,7 @@ export default function makeGetArticles ({ listArticles }) {
   if (typeof listArticles !== 'function') {
     throw new Error('makeGetArticles requires listArticles')
   }
-  return async function postArticle ({ query }) {
+  return async function getArticles ({ query }) {
     try {
       const data = await listArticles({ query })
 
@@ -11,6 +11,7 @@ export default function makeGetArticles ({ listArticles }) {
         data
       }
     } catch (e) {
+      console.log(e)
       return {
         statusCode: 400,
         data: {

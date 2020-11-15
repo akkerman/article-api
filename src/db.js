@@ -12,7 +12,7 @@ const client = new MongoClient(mongoUris, {
   useUnifiedTopology: true
 })
 
-async function makeDb (databaseName = 'rulemanager') {
+export async function makeDb (databaseName = 'articles') {
   if (!client.isConnected()) {
     log.debug('connecting to %s', mongoUris)
     await client.connect()
@@ -21,11 +21,6 @@ async function makeDb (databaseName = 'rulemanager') {
   return client.db(databaseName)
 }
 
-async function closeDb () {
+export async function closeDb () {
   if (client.isConnected()) { return client.close() }
-}
-
-export default {
-  makeDb,
-  closeDb
 }
