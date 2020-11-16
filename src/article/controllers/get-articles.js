@@ -1,6 +1,9 @@
-export default function makeGetArticles ({ listArticles }) {
+export default function makeGetArticles ({ listArticles, log }) {
   if (typeof listArticles !== 'function') {
     throw new Error('makeGetArticles requires listArticles')
+  }
+  if (!log) {
+    throw new Error('makeGetArticles requires log')
   }
   return async function getArticles ({ query }) {
     try {
@@ -11,7 +14,7 @@ export default function makeGetArticles ({ listArticles }) {
         data
       }
     } catch (e) {
-      console.log(e)
+      log.error(e)
       return {
         statusCode: 400,
         data: {
