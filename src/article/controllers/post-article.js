@@ -15,7 +15,7 @@ export default function makePostArticle ({ addArticle, log }) {
         data: { posted }
       }
     } catch (e) {
-      log.error(e)
+      log.error(e, 'error when posting article')
       return {
         statusCode: 400,
         data: {
