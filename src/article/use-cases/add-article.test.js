@@ -21,6 +21,11 @@ describe('add article', () => {
     await testDb.clear(COLLECTION_NAME)
   })
 
+  test('make requires articlesDb', () => {
+    const error = 'makeAddArticle requires articlesDb'
+    expect(() => makeAddArticle()).toThrow(error)
+    expect(() => makeAddArticle({})).toThrow(error)
+  })
   it('inserts articles in the database', async () => {
     const newArticle = buildFakeArticle()
     const inserted = await addArticle(newArticle)

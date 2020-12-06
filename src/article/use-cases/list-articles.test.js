@@ -21,6 +21,12 @@ describe('get articles', () => {
     await testDb.clear(COLLECTION_NAME)
   })
 
+  test('make requires articlesDb', () => {
+    const error = 'makeListArticles requires articlesDb'
+    expect(() => makeListArticles()).toThrow(error)
+    expect(() => makeListArticles({})).toThrow(error)
+  })
+
   it('gets all articles', async () => {
     const newArticles = Array.from({ length: 2 }, makeFakeArticle)
 

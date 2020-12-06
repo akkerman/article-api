@@ -1,4 +1,4 @@
-export default function makeListArticles ({ articlesDb }) {
+export default function makeListArticles ({ articlesDb } = {}) {
   if (!articlesDb) {
     throw new Error('makeListArticles requires articlesDb')
   }

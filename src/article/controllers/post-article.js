@@ -1,4 +1,10 @@
-export default function makePostArticle ({ addArticle }) {
+export default function makePostArticle ({ addArticle, log }) {
+  if (typeof addArticle !== 'function') {
+    throw new Error('makePostArticle requires addArticle')
+  }
+  if (!log) {
+    throw new Error('makePostArticle requires log')
+  }
   return async function postArticle (httpRequest) {
     try {
       const articleInfo = httpRequest.body
@@ -9,7 +15,7 @@ export default function makePostArticle ({ addArticle }) {
         data: { posted }
       }
     } catch (e) {
-      console.error(e)
+      log.error(e, 'error when posting article')
       return {
         statusCode: 400,
         data: {

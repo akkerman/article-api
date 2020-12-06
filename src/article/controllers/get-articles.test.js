@@ -14,7 +14,10 @@ describe('get articles controller', () => {
       buildFakeArticle()
     ]
     crea = {
-      listArticles: jest.fn().mockResolvedValue(articles)
+      listArticles: jest.fn().mockResolvedValue(articles),
+      log: {
+        error: jest.fn()
+      }
     }
     getArticles = makeGetArticles(crea)
   })
@@ -24,7 +27,8 @@ describe('get articles controller', () => {
   })
 
   test.each([
-    'listArticles'
+    'listArticles',
+    'log'
   ])('make requires s', dep => {
     const err = `makeGetArticles requires ${dep}`
 

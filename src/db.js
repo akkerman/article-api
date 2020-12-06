@@ -1,12 +1,11 @@
 /* istanbul ignore file - database will be implicitly tested by e2e */
 
 import config from './config.js'
+import log from './logger.js'
 import mongodb from 'mongodb'
 
 const { mongoUris } = config
 const { MongoClient } = mongodb
-
-const log = console
 
 const client = new MongoClient(mongoUris, {
   useUnifiedTopology: true

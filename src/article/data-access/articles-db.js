@@ -1,4 +1,4 @@
-export default function makeArticlesDb ({ makeDb }) {
+export default function makeArticlesDb ({ makeDb } = {}) {
   if (typeof makeDb !== 'function') {
     throw new Error('makeArticlesDb requires function makeDb')
   }

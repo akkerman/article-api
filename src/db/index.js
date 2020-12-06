@@ -1,11 +1,13 @@
+/* istanbul ignore file */
 /* eslint no-console: 0 */
-import { makeDb } from '../src/data-access'
+import { makeDb } from '../db.js'
 import dotenv from 'dotenv'
+import log from '../logger.js'
 
 dotenv.config()
 
 async function setupDb () {
-  console.log('Setting up database...')
+  log.info('Setting up database...')
   // database collection will automatically be created if it does not exist
   // indexes will only be added if they don't exist
   const db = await makeDb()
@@ -16,8 +18,8 @@ async function setupDb () {
       { key: { tags: -1 }, name: 'tag_idx' }
     ])
 
-  console.log(result)
-  console.log('Database setup complete...')
+  log.info(result)
+  log.info('Database setup complete...')
   process.exit()
 }
 

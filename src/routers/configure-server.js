@@ -2,7 +2,10 @@ import http from 'http'
 
 import articleRouter from './article-router.js'
 
-export default function configure (log) {
+export default function configure ({ log }) {
+  if (!log) {
+    throw Error('configure requires log')
+  }
   const server = http.createServer((req, res) => {
     const { url } = req
     log.info('Received request', url)

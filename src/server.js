@@ -2,10 +2,11 @@
 import configureServer from './routers/configure-server.js'
 import { closeDb } from './db.js'
 import config from './config.js'
+import log from './logger.js'
 
 // -- base server setup
-const log = console
-const { server } = configureServer(log)
+
+const { server } = configureServer({ log })
 
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)

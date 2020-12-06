@@ -2,8 +2,33 @@ import makePostArticle from './post-article'
 import makeFakeArticle from '../../../__tests__/fixtures/article'
 
 describe('post article controller', () => {
+  let crea
+  let postArticle
+
+  beforeEach(() => {
+    crea = {
+      addArticle: jest.fn().mockImplementation(a => a),
+      log: {
+        error: jest.fn()
+      }
+    }
+    postArticle = makePostArticle(crea)
+  })
+
+  test('make requires input', () => {
+    expect(() => makePostArticle()).toThrow()
+  })
+
+  test.each([
+    'addArticle',
+    'log'
+  ])('make requires s', dep => {
+    const err = `makePostArticle requires ${dep}`
+
+    expect(() => makePostArticle({ ...crea, [dep]: undefined })).toThrow(err)
+  })
+
   it('succesfully posts an article', async () => {
-    const postArticle = makePostArticle({ addArticle: a => a })
     const article = makeFakeArticle()
     const request = {
       body: article
@@ -16,12 +41,9 @@ describe('post article controller', () => {
 
     expect(actual).toEqual(expected)
   })
+
   it('reports user errors', async () => {
-    const postArticle = makePostArticle({
-      addArticle: () => {
-        throw Error('Pow!')
-      }
-    })
+    crea.addArticle.mockRejectedValue(Error('Pow!'))
     const fakeArticle = makeFakeArticle()
     const request = {
       headers: {
