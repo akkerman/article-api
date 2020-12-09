@@ -10,7 +10,6 @@ describe('articlesdb', () => {
   let testDb
   let articlesDb
   let articles
-  let collection
 
   beforeEach(async () => {
     jest.clearAllMocks().resetModules()
@@ -24,14 +23,11 @@ describe('articlesdb', () => {
 
     articlesDb = makeArticlesDb(crea)
 
-    const db = await testDb.makeDb()
-
     await testDb.clear(COLLECTION_NAME)
 
-    collection = db.collection(COLLECTION_NAME)
-
-    const copy = articles.map(a => ({ ...a }))
-    await collection.insertMany(copy)
+    for (const article of articles) {
+      await articlesDb.insert(article)
+    }
   })
 
   test('make requires input', () => {

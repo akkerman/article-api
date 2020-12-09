@@ -8,32 +8,56 @@ export default function makeArticlesDb ({ makeDb } = {}) {
     find
   })
 
-  async function insert (articleInfo) {
-    const coll = await collection()
-
-    const result = await coll.insertOne({ ...articleInfo, _id: articleInfo.id })
-    const article = result.ops[0]
-
-    delete article._id
-
-    return article
+  async function insert ({ id, hash, title, description, link, tags, image, date }) {
+    const db = await makeDb()
+    return new Promise((resolve, reject) => {
+      db.run('INSERT INTO articles (id, hash, title, description, link, tags, image , date) VALUES (?,?,?,?,?,?,?,?)',
+        [id, hash, title, description, link, tags.join(','), image, date],
+        err => err && reject(err)
+      ).get('SELECT * from articles where id = ?', [id], (err, row) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(row2article(row))
+        }
+      })
+    })
   }
 
   async function findByHash ({ hash }) {
-    const coll = await collection()
-
-    return await coll.findOne({ hash })// .project({ _id: 0 })
+    const db = await makeDb()
+    return new Promise((resolve, reject) => {
+      db.get('SELECT * from articles where hash = ?', [hash], (err, row) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(row2article(row))
+        }
+      })
+    })
   }
 
   async function find () {
-    const coll = await collection()
-
-    return coll.find({}).project({ _id: 0 }).toArray()
+    const db = await makeDb()
+    return new Promise((resolve, reject) => {
+      db.all('SELECT * from articles', (err, rows) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(rows.map(row2article))
+        }
+      })
+    })
   }
 
-  async function collection () {
-    const db = await makeDb()
+  function row2article (row) {
+    if (row) {
+      const article = { ...row }
+      article.tags = row.tags ? row.tags.split(',') : []
 
-    return db.collection('articles')
+      return article
+    }
+
+    return row
   }
 }
