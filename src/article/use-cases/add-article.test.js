@@ -17,8 +17,12 @@ describe('add article', () => {
     addArticle = makeAddArticle({ articlesDb })
   })
 
-  afterAll(async () => {
+  beforeEach(async () => {
     await testDb.clear(COLLECTION_NAME)
+  })
+
+  afterAll(async () => {
+    await testDb.close()
   })
 
   test('make requires articlesDb', () => {

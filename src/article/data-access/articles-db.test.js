@@ -12,23 +12,27 @@ describe('articlesdb', () => {
   let articles
   let collection
 
+  beforeAll(async () => {
+    testDb = await makeTestDb({ dbName: 'articles-db-test' })
+    const db = await testDb.makeDb()
+    collection = db.collection(COLLECTION_NAME)
+  })
+  afterAll(async () => {
+    await testDb.close()
+  })
+
   beforeEach(async () => {
     jest.clearAllMocks().resetModules()
 
     articles = Array.from({ length: dbSize }, buildFakeArticle)
 
-    testDb = await makeTestDb({ dbName: 'articles-db-test' })
     crea = {
       makeDb: testDb.makeDb
     }
 
     articlesDb = makeArticlesDb(crea)
 
-    const db = await testDb.makeDb()
-
     await testDb.clear(COLLECTION_NAME)
-
-    collection = db.collection(COLLECTION_NAME)
 
     const copy = articles.map(a => ({ ...a }))
     await collection.insertMany(copy)

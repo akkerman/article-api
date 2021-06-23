@@ -16,9 +16,12 @@ describe('get articles', () => {
     articlesDb = makeArticlesDb({ makeDb: testDb.makeDb })
     listArticles = makeListArticles({ articlesDb })
   })
+  beforeEach(async () => {
+    await testDb.clear(COLLECTION_NAME)
+  })
 
   afterAll(async () => {
-    await testDb.clear(COLLECTION_NAME)
+    await testDb.close()
   })
 
   test('make requires articlesDb', () => {
